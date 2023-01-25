@@ -43,6 +43,10 @@ public struct LegacyVideoPlayer<Overlay: View>: UIViewControllerRepresentable {
         updateOverlay(in: uiViewController, context: context)
     }
 
+    public func dismantleUIViewController(_ uiViewController: LegacyAVPlayerViewController, coordinator: CustomPlayerCoordinator<Overlay>) {
+        uiViewController.player?.pause()
+    }
+    
     private func updateOverlay(in controller: LegacyAVPlayerViewController, context: UIViewControllerRepresentableContext<LegacyVideoPlayer>) {
         guard let hostController = controller.overlayViewController as? UIHostingController<Overlay> else {
             let host = UIHostingController(rootView: overlay())
