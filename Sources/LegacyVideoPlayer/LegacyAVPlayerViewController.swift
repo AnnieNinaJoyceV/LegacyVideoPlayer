@@ -71,5 +71,6 @@ public class LegacyAVPlayerViewController: AVPlayerViewController {
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print("will disappear")
+        player?.pause()
     }
 }
