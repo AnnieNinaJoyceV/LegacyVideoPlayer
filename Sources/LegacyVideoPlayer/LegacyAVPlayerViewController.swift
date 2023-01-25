@@ -54,7 +54,10 @@ public class LegacyAVPlayerViewController: AVPlayerViewController {
         didSet { rateObserver = player?.observe(\AVPlayer.rate, options: [.new], changeHandler: rateHandler(_:change:)) }
     }
 
-    deinit { rateObserver?.invalidate() }
+    deinit {
+        rateObserver?.invalidate()
+        print("deinit")
+    }
 
     private func rateHandler(_ player: AVPlayer, change: NSKeyValueObservedChange<Float>) {
         guard let item = player.currentItem,
@@ -63,5 +66,10 @@ public class LegacyAVPlayerViewController: AVPlayerViewController {
         else { return } // filter initial noise
 
         onPlayerStatusChange?(player.timeControlStatus)
+    }
+    
+    public override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("will disappear")
     }
 }
